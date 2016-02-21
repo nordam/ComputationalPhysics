@@ -1,3 +1,3 @@
-name: environment
+name: basemap
 dependencies:
-- basemap=1.0.7=0
+- basemap=1.0.7=np110py35_0
