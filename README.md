@@ -3,6 +3,7 @@ Jupyter notebooks and scripts with code examples, as shown in the lectures of TF
 
 ## Jupyter notebooks (examples in python)
 Try out the code in the notebooks, without installing anything locally, through binder:
+
 [![Binder](http://mybinder.org/badge.svg)](http://mybinder.org/repo/nordam/ComputationalPhysics)
 
 ## Dependencies
