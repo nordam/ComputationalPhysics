@@ -1,10 +1,5 @@
 import sys
 import numpy as np
-import matplotlib
-from matplotlib import pyplot as plt
-# Get nicer looking plots than default
-plt.style.use('bmh')
-# Timer to measure the performance of methods
 
 def B(t, x):
     return np.sin(0.1*x[0])*np.sin(0.1*x[1])*np.array([0., 0., 1.])
