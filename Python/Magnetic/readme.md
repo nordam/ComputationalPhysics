@@ -16,6 +16,8 @@ python plotter.py *.txt
 
 What happens here is that `xargs` recieves the four numbers, the passes one (due to `-n1`) to `python magnetic.py`, and then starts four (due to `-P4`) copies in parallel. If you send in more than four numbers, `xargs` will automatically start new processes, to keep four copies running until they are all done.
 
+Running several copies of a program in parallel in order to essentially solve a collection of independent problems, is often an extremely simple and efficient way of speeding up your calculations. Such problems are sometimes called 'embarrassingly parallel'.
+
 For increased style and elegance, use an automated way to generate the text input. For example, this command will use python to generate numbers from 0.1 to 1.2, with a spacing of 0.1, and run simulations for all of those, using four parallel copies.
 
 ```
