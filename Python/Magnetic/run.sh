@@ -1,3 +1,8 @@
+# run this script either with 
+# ./run.sh
+# or
+# bash run.sh
+
 # A small shell script to demonstrate how to run
 # magnetic.py in parallel using xargs. This is a
 # general approach, and should be useful for other
