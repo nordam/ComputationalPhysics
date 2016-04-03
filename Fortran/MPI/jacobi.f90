@@ -20,19 +20,20 @@ program jacobi
     call MPI_COMM_SIZE(MPI_COMM_WORLD, my_mpi_size, ierr)
 
     ! Divide array into parallel sections
+    ! Dividing only along one axis for simplicity
     N = int(Nx / my_mpi_size)
     print*, 'Rank: ', my_mpi_rank, 'allocating: ', Nx+2, N+2, 2
     ! allocate space for ghost cells
     allocate(U(Nx+2, N+2, 2))
 
     ! Set initial values, 0 along edges, 1 elsewhere
-    ! Set all elements to 1
+    ! Set all elements to 1 (initial guess, purposefully wrong)
     U = 1.0
     ! Set edge elements to 0, first short edges
     U(1,    :, 1) = 0.0
     U(Nx+2, :, 1) = 0.0
     ! then long edges on the two ends
-    ! Note that MPI uses 0 indexing
+    ! Note that MPI uses 0 indexing, even in fortran
     if (my_mpi_rank == 0) then
         U(:, 1,   1) = 0.0
     else if (my_mpi_rank == my_mpi_size - 1) then
@@ -40,7 +41,6 @@ program jacobi
     endif
 
     ! Loop over matrix
-
     print*, 'Rank: ', my_mpi_rank, 'Entering loop...'
     i = 0
     tol = 1e-9
@@ -58,8 +58,9 @@ program jacobi
         local_err = sum((U(2:Nx+1, 2:N+1, 1) - U(2:Nx+1, 2:N+1, 2))**2)
         call MPI_ALLREDUCE(local_err, global_err, 1, MPI_REAL, MPI_SUM, MPI_COMM_WORLD, ierr)
 
-        ! Print from one process only:
+        ! Print error from one process only:
         if (my_mpi_rank == 0) then
+            ! Print only every 1000 timesteps
             if (mod(i, 1000) == 0) then
                 print*, 'Global error: ', global_err
             endif
